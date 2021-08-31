@@ -8,5 +8,16 @@ data class MenuModel(
 
 data class MenuProperty(
     @Json(name = "title") val title: String,
-    @Json(name = "id")  val id: String
+    @Json(name = "id")  val id: String,
+    @Json(name = "categories") val categories: List<Categories>
+)
+
+data class Categories(
+    @Json(name = "title") val title: String,
+    @Json(name = "id")  val id: String,
+    @Json(name = "subcategories") val subcategories: List<SubCategories>
+)
+
+data class SubCategories(
+    @Json(name = "title") val title: String
 )
