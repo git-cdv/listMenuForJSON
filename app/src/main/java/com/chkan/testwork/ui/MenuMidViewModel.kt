@@ -19,28 +19,20 @@ class MenuMidViewModel : ViewModel() {
     private val _results = MutableLiveData<MenuModel>()
     val results: LiveData<MenuModel> = _results
 
-    val _arg = MutableLiveData<Int>()
-    val arg: LiveData<Int> = _arg
-
-
-    init {
-        getMenu()
-    }
-
-    fun getMenu() {
+    fun getMenu(arg:Int) {
         viewModelScope.launch {
-
+            Log.d(Constans.TAG, "arg -> $arg")
             try {
                 val response = MenuApi.retrofitService.getMenu()
                 if (response.isSuccessful) {
                     _results.value = response.body()
                     val entrees: MutableList<Titles> = mutableListOf()
-                    for(x in results.value!!.menus[0].categories.indices){
+                    for(x in results.value!!.menus[arg-1].categories.indices){
                         entrees.add(Titles(
-                            results.value!!.menus[0].categories[x].id.toInt(),results.value!!.menus[0].categories[x].title))
+                            results.value!!.menus[arg-1].categories[x].id.toInt(),results.value!!.menus[arg-1].categories[x].title))
                     }
                     _menus.value=entrees
-                    Log.d(Constans.TAG, "size -> ${results.value!!.menus[0].categories.indices}")
+                    Log.d(Constans.TAG, "size -> ${results.value!!.menus[arg-1].categories.indices}")
                     Log.d(Constans.TAG, "listResult -> ${_menus.value}")
 
                 }

@@ -23,7 +23,7 @@ class Menu: Fragment() {
     ): View? {
         val argValue = requireArguments().getInt("arg")
         Log.d(Constans.TAG, "argValue -> $argValue")
-        viewModel._arg.value=argValue
+        viewModel.getMenu(argValue)
 
         val binding = FragmentMenuBinding.inflate(inflater)
         //назначаем ресайклеру адаптер и слушатель кликов с обработкой в viewModel
