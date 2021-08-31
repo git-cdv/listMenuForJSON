@@ -33,7 +33,7 @@ private val retrofit = Retrofit.Builder()
 interface MenuApiService {
 
     @GET("categories?action=list")
-    suspend fun getMenu() : MenuModel
+    suspend fun getMenu() : Response<MenuModel>
 }
 
 /**

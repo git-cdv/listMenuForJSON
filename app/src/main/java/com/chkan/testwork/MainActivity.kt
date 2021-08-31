@@ -2,12 +2,13 @@ package com.chkan.testwork
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 
 class MainActivity : AppCompatActivity() {
-
+    private var back_pressed : Long = 0
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +22,20 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController)
 
 
+    }
+
+    //переопределяем нажатие кнопки назад - чтобы выходило а не переходило по стеку
+    override fun onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
+            moveTaskToBack(true)
+            finish()
+        } else {
+            Toast.makeText(
+                this, "Для выхода нажмите \"назад\" еще раз",
+                Toast.LENGTH_SHORT
+            ).show();
+            back_pressed = System.currentTimeMillis();
+        }
     }
 
 }

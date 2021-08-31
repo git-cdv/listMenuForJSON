@@ -3,6 +3,7 @@ package com.chkan.testwork.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -10,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.chkan.testwork.MainActivity
 import com.chkan.testwork.R
+import com.chkan.testwork.utils.Constans
 
 class DownloadActivity : AppCompatActivity() {
 
@@ -41,10 +43,9 @@ class DownloadActivity : AppCompatActivity() {
                 }
             })
 
-    }
-
-    override fun onStart() {
-        super.onStart()
         viewModel.getMenu()
     }
+
+
+
 }

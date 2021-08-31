@@ -33,7 +33,6 @@ class MainMenu: Fragment() {
         val lv = view.findViewById(R.id.lv_main) as ListView
         val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, centerlist)
         lv.adapter = adapter
-        viewModel.getMenu()
     }
 
 }
