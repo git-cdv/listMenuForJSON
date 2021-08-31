@@ -2,12 +2,14 @@ package com.chkan.testwork
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.chkan.testwork.utils.Constans
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
     private var back_pressed : Long = 0
     private lateinit var navController: NavController
 
@@ -21,7 +23,10 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController)
 
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     //переопределяем нажатие кнопки назад - чтобы выходило а не переходило по стеку
@@ -38,4 +43,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(Constans.TAG, "MainActivity ->onDestroy()")
+    }
+   open fun onMenuClicked (id:Int){
+       Log.d(Constans.TAG, "MainActivity ->onMenuClicked()")
+       val bundle = Bundle()
+       bundle.putInt("arg", id)
+       navController.navigate(R.id.menu_frag,bundle)
+    }
 }

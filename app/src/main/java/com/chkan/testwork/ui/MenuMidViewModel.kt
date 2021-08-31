@@ -11,16 +11,16 @@ import com.chkan.testwork.network.MenuApi
 import com.chkan.testwork.utils.Constans
 import kotlinx.coroutines.*
 
-class MenuViewModel : ViewModel() {
+class MenuMidViewModel : ViewModel() {
 
-    private var _menus = MutableLiveData<List<Titles>>()
-    val menus: LiveData<List<Titles>> = _menus
-
-    private var _titles = MutableLiveData<List<Titles>>()
-    val titles: LiveData<List<Titles>> = _titles
+    private var _menus = MutableLiveData<MutableList<Titles>>()
+    val menus: LiveData<MutableList<Titles>> = _menus
 
     private val _results = MutableLiveData<MenuModel>()
     val results: LiveData<MenuModel> = _results
+
+    val _arg = MutableLiveData<Int>()
+    val arg: LiveData<Int> = _arg
 
 
     init {
@@ -34,14 +34,14 @@ class MenuViewModel : ViewModel() {
                 val response = MenuApi.retrofitService.getMenu()
                 if (response.isSuccessful) {
                     _results.value = response.body()
-                    _titles.value = listOf(Titles(
-                        results.value!!.menus[0].id.toInt(),
-                        results.value!!.menus[0].title),Titles(
-                        results.value!!.menus[1].id.toInt(),
-                        results.value!!.menus[1].title),Titles(
-                        results.value!!.menus[2].id.toInt(),
-                        results.value!!.menus[2].title))
-                    Log.d(Constans.TAG, "listResult -> ${results.value}")
+                    val entrees: MutableList<Titles> = mutableListOf()
+                    for(x in results.value!!.menus[0].categories.indices){
+                        entrees.add(Titles(
+                            results.value!!.menus[0].categories[x].id.toInt(),results.value!!.menus[0].categories[x].title))
+                    }
+                    _menus.value=entrees
+                    Log.d(Constans.TAG, "size -> ${results.value!!.menus[0].categories.indices}")
+                    Log.d(Constans.TAG, "listResult -> ${_menus.value}")
 
                 }
             } catch (e: Exception) {
