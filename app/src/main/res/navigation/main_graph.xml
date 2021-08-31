@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/mainMenu">
+
+    <fragment
+        android:id="@+id/mainMenu"
+        android:name="com.chkan.testwork.ui.MainMenu"
+        android:label="MainMenu" />
+    <fragment
+        android:id="@+id/menu"
+        android:name="com.chkan.testwork.ui.Menu"
+        android:label="Menu" />
+    <fragment
+        android:id="@+id/items"
+        android:name="com.chkan.testwork.ui.Items"
+        android:label="Items" />
+</navigation>
