@@ -29,7 +29,7 @@ class Menu: Fragment() {
         //назначаем ресайклеру адаптер и слушатель кликов с обработкой в viewModel
         binding.rvMenuMid.adapter = MenuAdapter(MenuListListener { Id ->
             val act : MainActivity = activity as MainActivity
-            act.onMenuClicked(Id)
+            act.onItemsClicked(Id)
         } )
         // Позволяет привязке данных наблюдать за LiveData в течение жизненного цикла этого фрагмента
         binding.lifecycleOwner = this
