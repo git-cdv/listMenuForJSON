@@ -1,14 +1,54 @@
 package com.chkan.testwork.utils
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.chkan.testwork.R
 import com.chkan.testwork.databinding.RvItemBinding
 import com.chkan.testwork.model.Titles
 
-class MenuAdapter(val clickListener:MenuListListener): ListAdapter<Titles,
+class MenuAdapter : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
+
+    var data = listOf<Titles>()
+        set(value) {
+            field = value
+            //обновляет ВЕСЬ RecyclerView при изменении списка
+            notifyDataSetChanged()
+        }
+
+    override fun getItemCount() = data.size
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = data[position]
+        holder.bind(item)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        val tv: TextView = itemView.findViewById(R.id.tv_item_name)
+
+        fun bind(item: Titles) {
+            tv.text = item.title
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater
+                    .inflate(R.layout.rv_item, parent, false)
+
+                return ViewHolder(view)
+            }
+        }
+    }
+}
+
+/*class MenuAdapter(val clickListener:MenuListListener): ListAdapter<Titles,
         MenuAdapter.MenuViewHolder>(DiffCallback) {
 
         class MenuViewHolder(
@@ -25,9 +65,9 @@ class MenuAdapter(val clickListener:MenuListListener): ListAdapter<Titles,
             }
         }
 
-        /**
+        *//**
          * Создаем новые представления элементов [RecyclerView] (вызываемые диспетчером макета)
-         */
+         *//*
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
@@ -52,7 +92,7 @@ class MenuAdapter(val clickListener:MenuListListener): ListAdapter<Titles,
         }
     }
 
-    }
+    }*/
 
     class MenuListListener(val clickListener: (id: Int) -> Unit) {
         fun onClick(title: Titles) = clickListener(title.id)

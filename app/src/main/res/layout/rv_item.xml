@@ -7,15 +7,15 @@
             name="titles"
             type="com.chkan.testwork.model.Titles" />
 
-        <variable
+      <!--  <variable
             name="clickListener"
-            type="com.chkan.testwork.utils.MenuListListener" />
+            type="com.chkan.testwork.utils.MenuListListener" />-->
     </data>
 
     <LinearLayout
         android:id="@+id/container_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
         android:paddingStart="16dp"
@@ -24,9 +24,9 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/gray"
-            android:onClick="@{() -> clickListener.onClick(titles)}"
-            >
+            android:backgroundTint="@color/gray">
+           <!-- android:onClick="@{() -> clickListener.onClick(titles)}"-->
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
