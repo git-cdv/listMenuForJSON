@@ -24,18 +24,18 @@ class MainMenu: Fragment() {
     ): View? {
 
         val binding = FragmentMainMenuBinding.inflate(inflater)
-        //назначаем ресайклеру адаптер и слушатель кликов с обработкой в viewModel
-       /* binding.rvMenu.adapter = MenuAdapter(MenuListListener { Id ->
-             val act : MainActivity = activity as MainActivity
-             act.onMenuClicked(Id)
-            } )*/
+
         // Позволяет привязке данных наблюдать за LiveData в течение жизненного цикла этого фрагмента
         binding.lifecycleOwner = this
 
         // Предоставление привязки доступа к WarehouseViewModel (xml олжна быть эта переменная)
         binding.viewModel = viewModel
 
-        val adapter = MenuAdapter()
+        //назначаем ресайклеру адаптер и слушатель кликов с обработкой в viewModel
+        val adapter = MenuAdapter(MenuListListener { Id ->
+            val act : MainActivity = activity as MainActivity
+            act.onMenuClicked(Id)
+        } )
         binding.rvMenu.adapter = adapter
 
         //получаем данные для отрисовки ресайклера

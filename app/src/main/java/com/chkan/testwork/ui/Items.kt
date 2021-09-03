@@ -28,12 +28,11 @@ class Items: Fragment() {
         Log.d(Constans.TAG, "argCat -> $argCat,argItem -> $argItem")
         viewModel.getMenu(argCat,argItem)
 
-
         val binding = FragmentItemsBinding.inflate(inflater)
-       /* //назначаем ресайклеру адаптер и слушатель кликов с обработкой в viewModel
+        //назначаем ресайклеру адаптер и слушатель кликов с обработкой в viewModel
         binding.rvItems.adapter = MenuAdapter(MenuListListener { Id ->
             Log.d(Constans.TAG, "MenuListListener -> $Id")
-        } )*/
+        } )
         // Позволяет привязке данных наблюдать за LiveData в течение жизненного цикла этого фрагмента
         binding.lifecycleOwner = this
 

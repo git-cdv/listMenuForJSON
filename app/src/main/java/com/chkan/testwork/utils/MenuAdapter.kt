@@ -1,15 +1,12 @@
 package com.chkan.testwork.utils
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.chkan.testwork.R
 import com.chkan.testwork.databinding.RvItemBinding
 import com.chkan.testwork.model.Titles
 
-class MenuAdapter : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
+class MenuAdapter (val clickListener:MenuListListener): RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
     var data = listOf<Titles>()
         set(value) {
@@ -17,14 +14,15 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
             //обновляет ВЕСЬ RecyclerView при изменении списка
             notifyDataSetChanged()
         }
-
+    // Адаптеру нужно знать, сколько элементов нужно предоставить компоненту
     override fun getItemCount() = data.size
 
+    //связываем используемые поля с данными
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.bind(item)
+        holder.bind(item,clickListener)
     }
-
+    //нужно указать идентификатор макета для отдельного элемента списка
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -32,8 +30,11 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
     class ViewHolder private constructor(val binding: RvItemBinding)
         : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: Titles) {
-            binding.tvItemName.text = item.title
+        fun bind(item: Titles, clickListener: MenuListListener) {
+            //где titles название <data><variable> из rv_item.xml
+            //т.е. какие вью мы с <variable> во rv_item.xml связали (вот так "@{titles.title}") - такие и покажутся
+            binding.titles = item
+            binding.clickListener = clickListener
         }
 
         companion object {
@@ -47,52 +48,7 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
     }
 }
 
-/*class MenuAdapter(val clickListener:MenuListListener): ListAdapter<Titles,
-        MenuAdapter.MenuViewHolder>(DiffCallback) {
+class MenuListListener(val clickListener: (id: Int) -> Unit) {
+    fun onClick(title: Titles) = clickListener(title.id)
+}
 
-        class MenuViewHolder(
-            private var binding: RvItemBinding
-        ) : RecyclerView.ViewHolder(binding.root) {
-            fun bind(mTitle: Titles, clickListener: MenuListListener) {
-                //где product название <data><variable> из list_item_wh.xml
-                //т.е. какие вью мы с <variable> во list_item_wh.xml связали - такие и покажутся
-                binding.titles = mTitle
-                binding.clickListener = clickListener
-                // Это важно, потому что это приводит к немедленному выполнению привязки данных,
-                // что позволяет RecyclerView производить правильные измерения размера представления
-                binding.executePendingBindings()
-            }
-        }
-
-        *//**
-         * Создаем новые представления элементов [RecyclerView] (вызываемые диспетчером макета)
-         *//*
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-        ): MenuAdapter.MenuViewHolder {
-            return MenuViewHolder(
-                RvItemBinding.inflate(LayoutInflater.from(parent.context)))
-        }
-
-        override fun onBindViewHolder(holder: MenuAdapter.MenuViewHolder, position: Int) {
-            val mTitle = getItem(position)
-            holder.bind(mTitle,clickListener)
-        }
-
-    companion object DiffCallback : DiffUtil.ItemCallback<Titles>() {
-
-        override fun areItemsTheSame(oldItem: Titles, newItem: Titles): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Titles, newItem: Titles): Boolean {
-            return oldItem.title == newItem.title
-        }
-    }
-
-    }*/
-
-    class MenuListListener(val clickListener: (id: Int) -> Unit) {
-        fun onClick(title: Titles) = clickListener(title.id)
-    }
