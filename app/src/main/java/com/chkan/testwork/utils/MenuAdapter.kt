@@ -29,20 +29,19 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val tv: TextView = itemView.findViewById(R.id.tv_item_name)
+    class ViewHolder private constructor(val binding: RvItemBinding)
+        : RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: Titles) {
-            tv.text = item.title
+            binding.tvItemName.text = item.title
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater
-                    .inflate(R.layout.rv_item, parent, false)
+                val bind = RvItemBinding.inflate(layoutInflater, parent, false)
 
-                return ViewHolder(view)
+                return ViewHolder(bind)
             }
         }
     }
