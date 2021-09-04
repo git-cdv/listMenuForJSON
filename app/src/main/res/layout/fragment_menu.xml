@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.chkan.testwork.ui.MenuMidViewModel" />
+            type="com.chkan.testwork.ui.MenuViewModel" />
     </data>
 
 

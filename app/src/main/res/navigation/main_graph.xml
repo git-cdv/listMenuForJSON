@@ -19,9 +19,16 @@
         <argument
             android:name="clickedId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_menu_frag_to_items_frag"
+            app:destination="@id/items_frag" />
     </fragment>
     <fragment
         android:id="@+id/items_frag"
         android:name="com.chkan.testwork.ui.Items"
-        android:label="Subcategories" />
+        android:label="Subcategories" >
+        <argument
+            android:name="clickedItemId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
