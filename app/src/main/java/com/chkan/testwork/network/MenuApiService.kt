@@ -13,14 +13,14 @@ private const val BASE_URL =
     "https://burger.devforfun.net/api.php/v1/"
 
 /**
- * Build the Moshi object with Kotlin adapter factory that Retrofit will be using.
+ * Создаем фабрику адаптеров для конвертаций в Ретрофите
  */
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
 /**
- * The Retrofit object with the Moshi converter.
+ * Создаем обьект Ретрофита с конвертером Moshi
  */
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -28,7 +28,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 /**
- * A public interface that exposes the [getPhotos] method
+ * Открытый интерфейс, который предоставляет гет-метод (BASE_URL+GET value)
  */
 interface MenuApiService {
 
@@ -37,7 +37,7 @@ interface MenuApiService {
 }
 
 /**
- * A public Api object that exposes the lazy-initialized Retrofit service
+ * Общедоступный объект Api, предоставляющий ленивую инициализацию службы
  */
 object MenuApi {
     val retrofitService: MenuApiService by lazy { retrofit.create(MenuApiService::class.java) }

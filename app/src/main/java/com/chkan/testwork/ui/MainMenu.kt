@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.chkan.testwork.MainActivity
 import com.chkan.testwork.databinding.FragmentMainMenuBinding
 import com.chkan.testwork.utils.MenuAdapter
@@ -33,8 +34,7 @@ class MainMenu: Fragment() {
 
         //назначаем ресайклеру адаптер и слушатель кликов с обработкой в viewModel
         val adapter = MenuAdapter(MenuListListener { Id ->
-            val act : MainActivity = activity as MainActivity
-            act.onMenuClicked(Id)
+            viewModel.onMenuClicked(Id)
         } )
         binding.rvMenu.adapter = adapter
 
@@ -43,6 +43,16 @@ class MainMenu: Fragment() {
             it?.let {
                 adapter.data = it
             }
+        })
+
+        viewModel.navigateToMenu.observe(viewLifecycleOwner,{id->
+            id?.let {
+                this.findNavController().navigate(MainMenuDirections.
+                actionMainMenuToMenuFrag(id)
+                    )
+                viewModel.onMenuNavigated()
+            }
+
         })
 
         return binding.root

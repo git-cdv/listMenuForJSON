@@ -7,11 +7,19 @@
     <fragment
         android:id="@+id/mainMenu"
         android:name="com.chkan.testwork.ui.MainMenu"
-        android:label="Menu" />
+        android:label="Menu" >
+        <action
+            android:id="@+id/action_mainMenu_to_menu_frag"
+            app:destination="@id/menu_frag" />
+    </fragment>
     <fragment
         android:id="@+id/menu_frag"
         android:name="com.chkan.testwork.ui.Menu"
-        android:label="Categories" />
+        android:label="Categories" >
+        <argument
+            android:name="clickedId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/items_frag"
         android:name="com.chkan.testwork.ui.Items"

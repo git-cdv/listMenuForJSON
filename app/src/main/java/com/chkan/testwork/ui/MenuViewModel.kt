@@ -13,15 +13,25 @@ import kotlinx.coroutines.*
 
 class MenuViewModel : ViewModel() {
 
-    private var _menus = MutableLiveData<List<Titles>>()
-    val menus: LiveData<List<Titles>> = _menus
-
     private var _titles = MutableLiveData<List<Titles>>()
     val titles: LiveData<List<Titles>> = _titles
 
     private val _results = MutableLiveData<MenuModel>()
     val results: LiveData<MenuModel> = _results
 
+    //объект для управления навигацией
+    private val _navigateToMenu = MutableLiveData<Int?>()
+    val navigateToMenu
+        get() = _navigateToMenu
+
+    //для начала навигации
+    fun onMenuClicked(id: Int){
+        _navigateToMenu.value = id
+    }
+    //для конца навигации
+    fun onMenuNavigated() {
+        _navigateToMenu.value = null
+    }
 
     init {
         getMenu()

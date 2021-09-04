@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id("kotlin-parcelize")
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -49,8 +50,7 @@ dependencies {
     //navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
-    //gson
-    // Moshi
+     // Moshi
     implementation 'com.squareup.moshi:moshi-kotlin:1.9.3'
     // Retrofit with Moshi Converter
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
